@@ -1,10 +1,11 @@
+# sub encrpytion function Caesar Cipher
 def f(msg, key):
     out = ""
     for i in msg:
         out += chr((ord(i)-ord('A')+key)%26+ord('A'))
     return out
 
-
+# Xor of two equal strings
 def XOR(m1,m2):
     out = ""
     for i in range(len(m1)):
@@ -13,6 +14,7 @@ def XOR(m1,m2):
         out += chr(ord("A") + (n1^n2))
     return out
 
+# Encryption function Feistel Cipher
 def encrypt(msg,key):
     if len(msg) % 2 == 1:
         msg+='x'
@@ -26,29 +28,34 @@ def encrypt(msg,key):
     Lhalf,Rhalf = Rhalf,Lhalf
     return Lhalf+Rhalf
 
-
+# Decryption function Feistel Cipher
 def decrypt(cipher, key):
     key = key[::-1]
     return encrypt(cipher, key)
 
-
-def n_Feistel_encrypt(msg,key,n):
+# N time Encryption function Feistel Cipher
+def n_Feistel_encrypt(msg, key, n, showintermediate=False):
     for i in range(n):
         msg = encrypt(msg, key)
+        if showintermediate:
+            print(msg)
     print(msg)
     return msg
 
-def n_Feistel_decrypt(cipher,key,n):
+# N time Decryption function Feistel Cipher
+def n_Feistel_decrypt(cipher, key, n, showintermediate=False):
     for i in range(n):
         cipher = decrypt(cipher, key)
+        if showintermediate:
+            print(cipher)
     print(cipher)
     return cipher
 
-
+# Eg:
 msg = "OrgMsg".upper()
 key = [3,2]
-cipher = n_Feistel_encrypt(msg, key, 5)
-newmsg = n_Feistel_decrypt(cipher, key, 5)
+cipher = n_Feistel_encrypt(msg, key, 5, showintermediate=True)
+newmsg = n_Feistel_decrypt(cipher, key, 5, showintermediate=True)
 
 if newmsg == msg:
     print("Success")
