@@ -1,9 +1,5 @@
 # sub encrpytion function Caesar Cipher
-def f(msg, key):
-    out = ""
-    for i in msg:
-        out += chr((ord(i)-ord('A')+key)%26+ord('A'))
-    return out
+from CaesarCipher import encrypt as f
 
 # Xor of two equal strings
 def XOR(m1,m2):
